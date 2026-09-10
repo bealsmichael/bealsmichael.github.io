@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>Michael Beals | Mechanical Engineer</title>
+<meta name="description" content="Mechanical engineering portfolio of Michael Beals, Stanford University. Casting, machining, soft robotics, and semiconductor equipment engineering." />
+
+<!-- Link previews for LinkedIn, iMessage, Slack. -->
+<meta property="og:title" content="Michael Beals | Mechanical Engineer" />
+<meta property="og:description" content="Stanford mechanical engineering. Casting, machining, soft robotics, and semiconductor equipment engineering." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bealsmichael.github.io/" />
+<meta property="og:image" content="https://bealsmichael.github.io/images/headshot.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   1. DESIGN TOKENS
+   Change these six colors and the whole site changes.
+   ============================================================ */
+:root {
+  --paper:      #fbfaf7;
+  --surface:    #ffffff;
+  --ink:        #14161a;
+  --ink-soft:   #5b6169;
+  --line:       #e3e0d9;
+  --accent:     #1f45d8;
+  --accent-dim: #eef1fe;
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --step-1: 0.5rem;
+  --step-2: 1rem;
+  --step-3: 2rem;
+  --step-4: 4rem;
+  --step-5: 7rem;
+
+  --maxw: 1120px;
+  --radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:      #0e1013;
+    --surface:    #16191e;
+    --ink:        #f2f0ec;
+    --ink-soft:   #9aa1aa;
+    --line:       #272b32;
+    --accent:     #7f9bff;
+    --accent-dim: #1a1f33;
+  }
+}
+
+/* ============================================================
+   2. BASE
+   ============================================================ */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; margin: 0; font-weight: 600; }
+
+p { margin: 0 0 var(--step-2); }
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--step-3);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.section { padding: var(--step-5) 0; border-top: 1px solid var(--line); }
+
+.section-head { margin-bottom: var(--step-4); }
+.section-head h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); margin-top: var(--step-1); }
+.section-head p { color: var(--ink-soft); max-width: 52ch; margin-top: var(--step-2); }
+
+/* ============================================================
+   3. NAV
+   ============================================================ */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.nav.scrolled { border-bottom-color: var(--line); }
+
+.nav .container {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+}
+
+.nav-brand {
+  font-weight: 600; text-decoration: none; letter-spacing: -0.01em;
+}
+
+.nav-links { display: flex; gap: var(--step-3); list-style: none; margin: 0; padding: 0; }
+
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.nav-links a:hover,
+.nav-links a.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: none; border: 0; cursor: pointer; padding: 8px;
+}
+.hamburger span {
+  width: 22px; height: 2px; background: var(--ink);
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ============================================================
+   4. HERO
+   ============================================================ */
+.hero {
+  padding: var(--step-5) 0 var(--step-4);
+  position: relative;
+  overflow: hidden;
+}
+
+/* faint blueprint grid behind the hero */
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.hero .container { position: relative; }
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: var(--step-4);
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 4.5rem);
+  margin: var(--step-2) 0 var(--step-2);
+}
+
+.hero-lede {
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+  max-width: 46ch;
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--step-2); margin-top: var(--step-3); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 20px;
+  border-radius: var(--radius);
+  font-size: 0.92rem; font-weight: 500;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-ghost:hover { border-color: var(--ink-soft); }
+
+/* portrait / placeholder */
+.portrait {
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  display: grid; place-items: center;
+}
+.portrait img { width: 100%; height: 100%; object-fit: cover; }
+
+.placeholder {
+  display: grid; place-items: center;
+  width: 100%; height: 100%;
+  background:
+    repeating-linear-gradient(45deg, var(--accent-dim) 0 10px, transparent 10px 20px);
+  color: var(--ink-soft);
+  text-align: center;
+  padding: var(--step-2);
+}
+
+/* ============================================================
+   5. ABOUT + SKILLS
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: var(--step-4);
+}
+
+.facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.facts li {
+  display: flex; justify-content: space-between; gap: var(--step-2);
+  padding: 14px 0; border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.facts li span:first-child { color: var(--ink-soft); }
+.facts li span:last-child { text-align: right; font-weight: 500; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--step-3);
+  margin-top: var(--step-4);
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--step-3);
+}
+.skill-card h3 { font-size: 1rem; margin-bottom: var(--step-2); }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: var(--accent-dim);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   6. PROJECTS
+   ============================================================ */
+.project {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--step-4);
+  align-items: start;
+  padding: var(--step-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+.project:last-child { border-bottom: 0; }
+
+/* every other project flips sides on desktop */
+.project:nth-child(even) .project-media { order: 2; }
+
+.project-media { position: sticky; top: 100px; }
+
+/* main photo, keeps its own proportions */
+.media-frame {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.media-frame img { width: 100%; height: auto; }
+.media-frame .placeholder { aspect-ratio: 4 / 3; }
+
+/* small supporting shots underneath */
+.project-gallery {
+  display: flex; flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+.project-gallery img {
+  width: calc(33.333% - 7px);
+  min-width: 90px;
+  aspect-ratio: 1 / 1; object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+figure { margin: 0; }
+figcaption { font-size: 0.8rem; color: var(--ink-soft); margin-top: 8px; }
+
+.project-num { color: var(--accent); }
+
+.project h3 { font-size: clamp(1.35rem, 3vw, 1.9rem); margin: var(--step-1) 0 var(--step-2); }
+
+.project-body p { color: var(--ink-soft); }
+.project-body strong { color: var(--ink); font-weight: 600; }
+
+.spec {
+  margin: var(--step-3) 0 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.88rem;
+}
+.spec div {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: var(--step-2);
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+}
+.spec dt { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); padding-top: 3px; }
+.spec dd { margin: 0; }
+
+.project-links { display: flex; flex-wrap: wrap; gap: var(--step-2); margin-top: var(--step-3); }
+.project-links a {
+  font-size: 0.88rem; font-weight: 500;
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* ============================================================
+   7. CONTACT + FOOTER
+   ============================================================ */
+.contact { text-align: center; }
+.contact h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--step-2); }
+.contact-email {
+  display: inline-block;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  margin-bottom: var(--step-3);
+}
+.social { display: flex; justify-content: center; gap: var(--step-3); list-style: none; padding: 0; margin: var(--step-3) 0 0; }
+.social a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; }
+.social a:hover { color: var(--ink); }
+
+.footer {
+  border-top: 1px solid var(--line);
+  padding: var(--step-3) 0;
+}
+.footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--step-2); }
+
+/* ============================================================
+   8. SCROLL REVEAL
+   ============================================================ */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .btn:hover { transform: none; }
+}
+
+/* ============================================================
+   9. RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .hero-grid,
+  .about-grid,
+  .project { grid-template-columns: 1fr; }
+
+  .project:nth-child(even) .project-media { order: 0; }
+  .project-media { position: static; }
+
+  .portrait { max-width: 320px; }
+}
+
+@media (max-width: 700px) {
+  body { font-size: 16px; }
+  .container { padding: 0 var(--step-2); }
+  .section { padding: var(--step-4) 0; }
+
+  .hamburger { display: flex; }
+
+  .nav-links {
+    position: absolute; top: 68px; left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: var(--step-2) var(--step-2) var(--step-3);
+    display: none;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { display: block; padding: 12px 0; font-size: 1rem; border-bottom: 0; }
+
+  .spec div { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============================ NAV ============================ -->
+<nav class="nav" id="nav">
+  <div class="container">
+    <a href="#home" class="nav-brand">Michael Beals</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================ HERO ============================ -->
+<header class="hero" id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <p class="mono">Mechanical Engineering &middot; Stanford University</p>
+        <h1>Michael Beals</h1>
+        <p class="hero-lede">
+          I take mechanical designs from CAD through the shop floor. Casting and
+          machining, soft robotics hardware, and equipment engineering in a
+          semiconductor fab. Currently an undergraduate at Stanford.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View projects</a>
+          <a class="btn btn-ghost" href="files/resume.pdf">Resume (PDF)</a>
+        </div>
+      </div>
+
+      <div class="portrait">
+        <img src="images/headshot.jpg" alt="Michael Beals" />
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================ ABOUT ============================ -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="mono">01 / About</p>
+      <h2>Background</h2>
+    </div>
+
+    <div class="about-grid reveal">
+      <div>
+        <!-- ADD ONE PARAGRAPH ABOVE THIS: the personal origin. A machine you took
+             apart, the first thing you made, why mechanical engineering and not
+             something else. Two or three sentences. It is the only part of this
+             page I cannot write for you, and it is the part people remember. -->
+        <p>
+          The through line in my work is that it ends in a physical part. I like the
+          stretch between a model on screen and a thing in hand: the draft angle that
+          decides whether a casting pulls clean, the workholding that decides whether
+          a feature is machinable at all, the test rig that tells you the design was
+          wrong before the deadline does.
+        </p>
+        <p>
+          That has taken me from sand casting and manual machining in the Stanford
+          shops, to soft robotics hardware in the CHARM Lab, to equipment engineering
+          on an etch tool at TSMC Arizona. Different scales, same question: what is
+          actually limiting this, and how do you measure it.
+        </p>
+        <p>
+          I am finishing a BS in mechanical engineering at Stanford. I am most
+          interested in hardware roles where design, analysis, and fabrication sit close
+          together.
+        </p>
+      </div>
+
+      <ul class="facts">
+        <li><span>Education</span><span>BS Mechanical Engineering, Stanford<br />Expected June 2027</span></li>
+        <li><span>Focus</span><span>Design for manufacturing, mechatronics, hardware test</span></li>
+        <li><span>Most recent</span><span>Equipment Engineering Intern, TSMC Arizona</span></li>
+        <li><span>Location</span><span>Stanford, CA</span></li>
+        <!-- REPLACE: set this to whatever you are actually looking for right now -->
+        <li><span>Status</span><span>Open to internship and new grad roles</span></li>
+      </ul>
+    </div>
+
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <h3>Design &amp; Analysis</h3>
+        <div class="tags">
+          <span class="tag">Fusion 360</span>
+          <span class="tag">Onshape</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">FEA</span>
+          <span class="tag">Thermal analysis</span>
+          <span class="tag">Generative design</span>
+          <span class="tag">3D scanning</span>
+          <span class="tag">DFM / DFAM</span>
+          <span class="tag">PID control</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Manufacturing</h3>
+        <div class="tags">
+          <span class="tag">Sand casting</span>
+          <span class="tag">Pattern design</span>
+          <span class="tag">Manual lathe</span>
+          <span class="tag">Milling</span>
+          <span class="tag">Workholding &amp; soft jaws</span>
+          <span class="tag">Welding</span>
+          <span class="tag">Forging</span>
+          <span class="tag">3D printing</span>
+          <span class="tag">Surface finishing</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Test &amp; Software</h3>
+        <div class="tags">
+          <span class="tag">Rheological testing</span>
+          <span class="tag">Airflow &amp; pressure analysis</span>
+          <span class="tag">Material characterization</span>
+          <span class="tag">Python</span>
+          <span class="tag">C++</span>
+          <span class="tag">Arduino / Teensy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PROJECTS ============================ -->
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="mono">02 / Work</p>
+      <h2>Selected projects</h2>
+      <p>
+        Casting and machining, additive design, mechanism design, soft robotics
+        hardware, and semiconductor equipment engineering.
+      </p>
+    </div>
+
+    <!-- ---------- To add a project, copy a whole <article> block ---------- -->
+
+    <article class="project reveal">
+      <div class="project-media">
+        <figure>
+          <div class="media-frame">
+            <img src="images/narsil-1.jpg" alt="The finished cast aluminum Narsil bottle opener being used to open a bottle at sunset" />
+          </div>
+          <figcaption>Cast, machined, and polished in the Stanford shops.</figcaption>
+        </figure>
+        <div class="project-gallery">
+          <img src="images/narsil-2.jpg" alt="Narsil resting on a stump beside an opened bottle" loading="lazy" />
+          <img src="images/narsil-3.jpg" alt="Michael holding the finished piece outside the shop" loading="lazy" />
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="mono project-num">Project 01</p>
+        <h3>Narsil: cast aluminum bottle opener</h3>
+        <p>
+          <strong>The problem.</strong> Design and manufacture a functional cast
+          aluminum piece end to end, alone, in ten weeks. The hard constraint was the
+          engraving: raised lettering only reproduces in sand casting if the draft
+          angles and pattern geometry are right, and there is no second pour to fix it.
+          I also had no pattern board, so the two halves of the mold had to register
+          themselves.
+        </p>
+        <p>
+          <strong>What I did.</strong> Sole designer. Iterated the model in Fusion 360
+          through foam and machined plastic prototypes before committing geometry, then
+          sand cast the blade, crossguard, and lower handle in aluminum, engineering
+          draft so the engravings pulled clean in a single pour and using cast-in
+          alignment features in place of a pattern board. Turned the 6061 handle on a
+          manual lathe with a radius cutter and machined the mating and assembly
+          features on the mill and drill press using custom soft jaws. When the
+          hardware came in out of spec, I salvaged it in the shop by die-threading,
+          cutting, and belt-sanding the oversized screws to fit rather than losing a
+          week to reordering.
+        </p>
+        <p>
+          <!-- ADD A NUMBER if you have one: prototype iterations, pours, tolerance held. -->
+          <strong>Result.</strong> Every cast feature reproduced on the first pour, and
+          the cast surfaces were wet sanded and polished through progressive grits to a
+          mirror finish.
+        </p>
+
+        <dl class="spec">
+          <div><dt>Tools</dt><dd>Fusion 360, sand casting, manual lathe, mill, drill press</dd></div>
+          <div><dt>Role</dt><dd>Individual project, sole designer</dd></div>
+          <div><dt>Course</dt><dd>ME 103, Winter 2026</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-media">
+        <figure>
+          <div class="media-frame">
+            <img src="images/nose-1.jpg" alt="The finished organizer holding four pairs of sunglasses, a thermos, keys, and earbuds" loading="lazy" />
+          </div>
+          <figcaption>Four TPU noses, each holding a different frame style.</figcaption>
+        </figure>
+        <div class="project-gallery">
+          <img src="images/nose-2.jpg" alt="The bare PLA structure with the four black TPU nose mounts installed" loading="lazy" />
+          <img src="images/nose-3.jpg" alt="Michael holding one of the printed TPU noses" loading="lazy" />
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="mono project-num">Project 02</p>
+        <h3>Nose What You Need</h3>
+        <p>
+          <strong>The problem.</strong> Build one grab-and-go station for the things I
+          kept losing on the way out the door: keys, earbuds, four pairs of sunglasses,
+          and a thermos. Two things made it harder than it sounds. A full thermos set in
+          at an angle puts the center of mass well outside the base, so the whole thing
+          wants to tip. And rigid mounts let sport frames slide off, which is worse than
+          no mount at all.
+        </p>
+        <p>
+          <strong>What I did.</strong> Drove the structure with generative design in
+          Fusion 360, feeding it real measured loads plus misuse cases rather than ideal
+          ones, which is what forced the wide base. For the glasses mounts I scanned my
+          own face with Luma 3D, cut the nose out and decimated the mesh in Meshmixer,
+          and threaded the result into the PLA base as a separate part printed in TPU,
+          chosen for compliance and a higher coefficient of friction after PLA
+          prototypes let the sport frames slip. The first generative result did not fit
+          the printer bed, so I tightened spacing and gave up two glasses ports to make
+          it printable.
+        </p>
+        <p>
+          <strong>Result.</strong> Static stress analysis came back with a safety factor
+          above 15 throughout. The final base printed in a single 13-hour run with no
+          failures, the noses in 6 hours on an Ultimaker, and the whole thing cost about
+          $22 in material. It holds four different frame styles without slippage and
+          stays put with a full bottle leaned at 70 degrees. I still use it.
+        </p>
+
+        <dl class="spec">
+          <div><dt>Tools</dt><dd>Fusion 360 generative design, Luma 3D scanning, Meshmixer, PLA and TPU printing</dd></div>
+          <div><dt>Role</dt><dd>Individual project</dd></div>
+          <div><dt>Course</dt><dd>ME 127, Spring 2025</dd></div>
+        </dl>
+
+        <div class="project-links">
+          <a href="files/nose-what-you-need.pdf">Project write-up (PDF)</a>
+          <a href="files/me127-portfolio.pdf">Full ME 127 portfolio (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- CONFIDENTIALITY: keep this card at the level of methods and skills, which is
+         where I have written it. Do not add tool models, process parameters, layouts,
+         or internal photos. If in doubt, ask your manager before publishing. -->
+    <article class="project reveal">
+      <div class="project-media">
+        <figure>
+          <div class="media-frame">
+            <img src="images/tsmc-1.jpg" alt="Michael Beals outside the TSMC Arizona Fab 21 entrance sign" loading="lazy" />
+          </div>
+          <figcaption>Fab 21. No photography is permitted inside the fab.</figcaption>
+        </figure>
+        <div class="project-gallery">
+          <img src="images/tsmc-2.jpg" alt="Michael with fellow interns and the president of TSMC Arizona" loading="lazy" />
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="mono project-num">Project 03</p>
+        <h3>Equipment engineering, etch tools</h3>
+        <p>
+          <strong>The problem.</strong> Etch tool uptime depends on parts that wear
+          quietly. Three questions came my way over the summer: why the wafer transfer
+          arm was aging the way it was, whether it was running on the right lubricant,
+          and whether the mini-environment was actually containing what it was supposed
+          to contain.
+        </p>
+        <p>
+          <strong>What I did.</strong> Applied PID control principles to analyze the
+          transfer arm's motion profile, evaluating movement behavior against service
+          life. Characterized candidate lubricating greases using material property data
+          and squeeze flow rheological testing to compare flow and film behavior, which
+          turned lubricant selection into a measured comparison rather than a
+          convention. Analyzed airflow and pressure differential across the fan filter
+          unit and air curtain to assess flow uniformity and containment. Worked daily
+          with process engineering and counterpart teams in Taiwan, across languages and
+          time zones, to align on methodology.
+        </p>
+        <p>
+          <strong>Result.</strong> The work advanced to the semifinals of TSMC's
+          company-wide intern project competition.
+        </p>
+
+        <dl class="spec">
+          <div><dt>Tools</dt><dd>Rheological testing, PID analysis, airflow and pressure measurement</dd></div>
+          <div><dt>Role</dt><dd>Equipment Engineering Intern, Etch</dd></div>
+          <div><dt>Timeline</dt><dd>TSMC Arizona, Summer 2026</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-media">
+        <figure>
+          <div class="media-frame">
+            <img src="images/vine-course.jpg" alt="The transparent modular in-pipe test course, a serpentine run of clear tube and printed elbows" loading="lazy" />
+          </div>
+          <figcaption>The in-pipe course the robot ran: 25 feet through ten 90 degree turns.</figcaption>
+        </figure>
+        <div class="project-gallery">
+          <img src="images/vine-1.jpg" alt="Four completed tension reduction devices wired in series" loading="lazy" />
+          <img src="images/vine-2.jpg" alt="The modular free-space testing course built from aluminum extrusion and printed inserts" loading="lazy" />
+          <img src="images/vine-3.jpg" alt="Michael presenting the TRD research poster" loading="lazy" />
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="mono project-num">Project 04</p>
+        <h3>Tension reduction devices for a vine robot</h3>
+        <p>
+          <strong>The problem.</strong> Vine robots grow by everting new material out
+          through their own tip, which is what lets them thread into pipes and rubble.
+          The limit is friction. As the robot unspools past 20 feet, the new material
+          travelling to the tip is fighting gravity and drag along the whole body, and
+          the robot simply stops growing. Tension reduction devices ride inside the body
+          to overcome those forces, and the question was how to make them work well
+          enough, and be measurable enough, to characterize.
+        </p>
+        <p>
+          <strong>What I did.</strong> Designed and built the TRDs and the modular tip
+          mounts that carry them, so configurations could be swapped without rebuilding
+          the robot. Modeled in Onshape and Fusion 360, fabricated with 3D printing,
+          ultrasonic welding, and soldering, and wrote Teensy modules in the Arduino IDE
+          so several devices along the body ran in sync off one PCB. Then I built the
+          test infrastructure, which turned out to be half the work: a lightweight,
+          transparent, reconfigurable in-pipe system with 90 degree turns and T joints,
+          using mid-print inserts to capture 6-32 nuts so sections could be bolted into
+          different courses, plus a semi-modular free-space course from printed parts,
+          laser-cut sheet, and aluminum extrusion.
+        </p>
+        <p>
+          <strong>Result.</strong> With the TRDs installed, the robot ran 25 feet of
+          pipe through ten 90 degree turns, which is the kind of route that stops an
+          unassisted vine robot well short. The work was presented as a research poster
+          with William Heap and Professor Allison Okamura.
+        </p>
+
+        <dl class="spec">
+          <div><dt>Tools</dt><dd>Onshape, Fusion 360, 3D printing, Teensy, ultrasonic welding, laser cutting</dd></div>
+          <div><dt>Role</dt><dd>Research intern, CHARM Lab</dd></div>
+          <div><dt>Timeline</dt><dd>June 2025 to March 2026</dd></div>
+        </dl>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-media">
+        <figure>
+          <div class="media-frame">
+            <img src="images/clock-1.jpg" alt="The weight-driven stamping clock, showing the gear train, linkage, and paper belt" loading="lazy" />
+          </div>
+          <figcaption>The stamp swings in an arc from ink pad to paper belt.</figcaption>
+        </figure>
+        <div class="project-gallery">
+          <img src="images/clock-2.jpg" alt="Side view of the stamping clock mechanism" loading="lazy" />
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="mono project-num">Project 05</p>
+        <h3>Stamping clock: a weight-driven timepiece</h3>
+        <p>
+          <strong>The problem.</strong> The brief was open: build a timekeeping device
+          powered only by a falling weight. The obvious answer is a dial and a hand. We
+          wanted the passage of time to be the machine's physical output instead of a
+          reading you take off it.
+        </p>
+        <p>
+          <strong>What I did.</strong> Five-person team. The falling weight drives a
+          gear train into a linkage of our own design that swings a stamp through an arc,
+          from an ink pad onto a moving paper belt and back. Each stamp is one interval.
+          The belt darkens as the day goes on, and a fully dark sheet means the day is
+          done, so the record accumulates instead of resetting every twelve hours.
+          <!-- ADD: one sentence on what you specifically owned. Interviewers ask this
+               about every team project, and right now the card does not answer it. -->
+        </p>
+        <p>
+          <strong>Result.</strong> Fully functional, running on gravitational potential
+          energy alone.
+        </p>
+
+        <dl class="spec">
+          <div><dt>Tools</dt><dd>Linkage design, 3D printed gearing, laser-cut acrylic</dd></div>
+          <div><dt>Role</dt><dd>Five-person team</dd></div>
+          <div><dt>Course</dt><dd>ME 102, Winter 2025</dd></div>
+        </dl>
+
+        <div class="project-links">
+          <a href="files/me102-stamping-clock.pdf">Final submission (PDF)</a>
+          <!-- You linked a video of the machine running in the ME 102 report. If it is
+               public, put the URL here. Motion is the whole point of this one. -->
+        </div>
+      </div>
+    </article>
+
+    <article class="project reveal">
+      <div class="project-media">
+        <figure>
+          <div class="media-frame">
+            <img src="images/coral-1.jpg" alt="The 3D printed hexagonal coral nursery frame prototype" loading="lazy" />
+          </div>
+          <figcaption>Scaled PLA prototype of the hexagonal fixed-frame nursery.</figcaption>
+        </figure>
+        <div class="project-gallery">
+          <img src="images/coral-2.jpg" alt="CoralScapes poster session, showing the FEA results and the submerged prototype" loading="lazy" />
+        </div>
+      </div>
+      <div class="project-body">
+        <p class="mono project-num">Project 06</p>
+        <h3>CoralScapes: coral nursery structure</h3>
+        <p>
+          <strong>The problem.</strong> Coral nurseries grow fragments before they are
+          transplanted onto degraded reef, so a nursery that fails structurally costs a
+          season of restoration work. Ours had to hold four feet of diameter at 20 m
+          depth under drag, wave action, and hydrostatic load, stay easy for divers to
+          attach coral to and monitor, and use materials with low ecological impact.
+        </p>
+        <p>
+          <strong>What I did.</strong> Three-person team. We researched four nursery
+          archetypes and rejected the coral tree once we found our site profile did not
+          suit it, then iterated on the fixed-frame bed: a hexagonal frame to spread
+          load through the joints, hexagonal feet to cut the drag coefficient, filleted
+          edges, and holes at the joints for a flexible mesh bed that lets water and
+          nutrients through instead of the rigid steel grid that is standard. I ran the
+          FEA in Fusion 360 and checked it against analytical beam bending by hand, then
+          we printed scaled prototypes and pulled them to failure.
+        </p>
+        <p>
+          <strong>Result.</strong> FEA put the minimum factor of safety at 1.45, at the
+          outer legs, and 4.99 on the individual beams. Hand calculations gave 4.6 on the
+          large beam, within about 8 percent of simulation. Physical testing on the
+          scaled prototypes confirmed the joints as the weak point, which is where the
+          model had said the stress would concentrate.
+        </p>
+
+        <dl class="spec">
+          <!-- CHECK: the report models GFRP; your resume says 6061-T6 and 316L. Tell me
+               which is right and I will make both match. -->
+          <div><dt>Tools</dt><dd>Fusion 360 FEA, analytical hand calculations, scaled PLA prototypes</dd></div>
+          <div><dt>Role</dt><dd>Design and analysis, three-person team</dd></div>
+          <div><dt>Course</dt><dd>ME 80, Winter 2025</dd></div>
+        </dl>
+
+        <div class="project-links">
+          <a href="files/coralscapes-report.pdf">Final report (PDF)</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="section contact" id="contact">
+  <div class="container reveal">
+    <p class="mono">03 / Contact</p>
+    <h2>Let's talk</h2>
+    <a class="contact-email" href="mailto:mbeals27@stanford.edu">mbeals27@stanford.edu</a>
+    <ul class="social">
+      <!-- REPLACE with your LinkedIn handle -->
+      <li><a href="https://linkedin.com/in/yourhandle">LinkedIn</a></li>
+      <li><a href="https://github.com/bealsmichael">GitHub</a></li>
+      <li><a href="files/resume.pdf">Resume</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <span class="mono">&copy; 2026 Michael Beals</span>
+    <span class="mono">Stanford, California</span>
+  </div>
+</footer>
+
+<script>
+// ---------- mobile menu ----------
+const hamburger = document.getElementById("hamburger");
+const navLinks  = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+  const open = navLinks.classList.toggle("open");
+  hamburger.classList.toggle("open", open);
+  hamburger.setAttribute("aria-expanded", String(open));
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("open");
+    hamburger.classList.remove("open");
+    hamburger.setAttribute("aria-expanded", "false");
+  });
+});
+
+// ---------- border on the nav once you scroll ----------
+const nav = document.getElementById("nav");
+const onScroll = () => nav.classList.toggle("scrolled", window.scrollY > 8);
+onScroll();
+window.addEventListener("scroll", onScroll, { passive: true });
+
+// ---------- fade sections in as they enter the viewport ----------
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+// ---------- highlight the nav link for the section you are in ----------
+const sections = [...document.querySelectorAll("section[id], header[id]")];
+const spy = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    document.querySelectorAll(".nav-links a").forEach(a => {
+      a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
+    });
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+
+sections.forEach(s => spy.observe(s));
+</script>
+
+</body>
+</html>
